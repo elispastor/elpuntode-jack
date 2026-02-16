@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>El Punto de JACK · Máquinas de coser</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+
+        header {
+            background: #0b1e33;
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-placeholder {
+            width: 50px;
+            height: 50px;
+            background: #2a4a6e;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #ffd966;
+            border: 2px solid #4a6e8f;
+        }
+
+        .titulo-negocio h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .titulo-negocio p {
+            font-size: 0.8rem;
+            color: #b0c9e0;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: 2px solid #3a5a7a;
+            color: white;
+            font-size: 28px;
+            padding: 8px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .menu-toggle:hover {
+            background: #2a4a6e;
+        }
+
+        .nav-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: #0b1e33;
+            border-radius: 0 0 20px 20px;
+            margin-top: 10px;
+        }
+
+        .nav-menu.active {
+            max-height: 300px;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            padding: 10px 20px 20px;
+        }
+
+        .nav-menu li {
+            margin: 15px 0;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 40px;
+            background: #1a3350;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .nav-menu a:hover {
+            background: #2a4a6e;
+        }
+
+        .hero-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f0f4fa 100%);
+            margin: 20px;
+            border-radius: 40px;
+            padding: 30px 25px;
+            box-shadow: 0 20px 35px -10px rgba(0,20,40,0.3);
+            border: 1px solid rgba(59,130,246,0.2);
+            text-align: center;
+        }
+
+        .foto-perfil {
+            width: 100px;
+            height: 100px;
+            background: #1e3a5f;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #ffd966;
+            border: 4px solid #3b82f6;
+        }
+
+        .hero-card h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0b1e33;
+            margin-bottom: 5px;
+        }
+
+        .hero-card .profesion {
+            font-size: 1.2rem;
+            color: #2563eb;
+            font-weight: 600;
+            margin-bottom: 20px;
+            background: #dbeafe;
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 40px;
+        }
+
+        .info-contacto {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 25px 0;
+            text-align: left;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 28px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+        }
+
+        .info-item i {
+            width: 30px;
+            color: #2563eb;
+            font-size: 1.3rem;
+        }
+
+        .direccion {
+            grid-column: span 2;
+        }
+
+        /* SECCIÓN NUEVA: PORTADA */
+        .portada-section {
+            margin: 20px;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
+        }
+
+        .portada-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: none; /* Elimina el límite de altura */
+    object-fit: contain; /* Hace que la imagen se vea completa sin cortarse */
+    background-color: #f0f0f0; /* Color de fondo por si sobran espacios */
+}
+
+        .mvv-section {
+            background: #0b1e33;
+            color: white;
+            margin: 20px;
+            padding: 30px 25px;
+            border-radius: 40px;
+            box-shadow: 0 20px 30px -8px #0b1e33;
+        }
+
+        .mvv-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mvv-item {
+            background: #1a3350;
+            padding: 25px;
+            border-radius: 28px;
+            border-left: 8px solid #3b82f6;
+        }
+
+        .mvv-item h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #ffd966;
+        }
+
+        .mvv-item p {
+            color: #e0edff;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .catalogo {
+            margin: 20px;
+        }
+
+        .catalogo h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0b1e33;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+        }
+
+        .producto-card {
+            background: white;
+            border-radius: 28px;
+            padding: 20px 12px;
+            text-align: center;
+            box-shadow: 0 12px 25px -10px rgba(0,0,0,0.1);
+            transition: 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .producto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -8px #2563eb40;
+            border-color: #3b82f6;
+        }
+
+        .producto-icono {
+            font-size: 48px;
+            color: #2563eb;
+            margin-bottom: 12px;
+        }
+
+        .producto-card h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #0b1e33;
+        }
+
+        .producto-card p {
+            font-size: 0.9rem;
+            color: #4a5b73;
+            margin-top: 8px;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            background: #25d366;
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            box-shadow: 0 10px 25px #25d36680;
+            z-index: 100;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background: #20ba5a;
+        }
+
+        footer {
+            background: #0b1e33;
+            color: #b0c9e0;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            border-radius: 40px 40px 0 0;
+        }
+
+        footer a {
+            color: #ffd966;
+            text-decoration: none;
+        }
+
+        @media (min-width: 768px) {
+            .mvv-container {
+                flex-direction: row;
+            }
+            .info-contacto {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .productos-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .hero-card h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .header-container {
+                padding: 0 20px;
+            }
+            .menu-toggle {
+                display: none;
+            }
+            .nav-menu {
+                max-height: none;
+                background: transparent;
+                margin-top: 0;
+            }
+            .nav-menu ul {
+                display: flex;
+                gap: 20px;
+                justify-content: flex-end;
+                padding: 0;
+            }
+            .nav-menu li {
+                margin: 0;
+            }
+            .nav-menu a {
+                background: transparent;
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="logo-area">
+            <div class="logo-placeholder">
+                <i class="fas fa-horse"></i>
+            </div>
+            <div class="titulo-negocio">
+                <h1>EL PUNTO DE JACK</h1>
+                <p>Máquinas de coser · Técnico industrial</p>
+            </div>
+        </div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menú">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    <nav class="nav-menu" id="navMenu">
+        <ul>
+            <li><a href="#inicio"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="#mvv"><i class="fas fa-bullseye"></i> Misión·Visión·Valores</a></li>
+            <li><a href="#catalogo"><i class="fas fa-box"></i> Catálogo</a></li>
+            <li><a href="#contacto"><i class="fas fa-phone"></i> Contacto</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section id="inicio" class="hero-card">
+        <div class="foto-perfil">
+            <i class="fas fa-user-cog"></i>
+        </div>
+        <h2>GEINER CARPIO</h2>
+        <div class="profesion">Técnico en maquinaria industrial y confección</div>
+        
+        <div class="info-contacto">
+            <div class="info-item"><i class="fas fa-envelope"></i> heiner.carpio126@gmail.com</div>
+            <div class="info-item"><i class="fas fa-phone-alt"></i> 313 468 9806</div>
+            <div class="info-item"><i class="fas fa-truck"></i> Servicio a domicilio</div>
+            <div class="info-item direccion"><i class="fas fa-map-pin"></i> Av. 9 #8-65, Cúcuta, N. de Santander, Colombia</div>
+        </div>
+
+        <div style="display: flex; gap: 15px; justify-content: center; margin: 15px 0;">
+            <span style="background:#e6f0ff; padding:8px 20px; border-radius:40px; font-weight:600;"><i class="fas fa-cogs"></i> Compra y venta</span>
+            <span style="background:#e6f0ff; padding:8px 20px; border-radius:40px; font-weight:600;"><i class="fas fa-tools"></i> Técnico especialista</span>
+        </div>
+    </section>
+
+    <!-- PORTADA DEL NEGOCIO - AHORA SÍ INCLUIDA -->
+    <section class="portada-section">
+        <img src="imagenes/portada.jpg" alt="El Punto de Jack" class="portada-img">
+    </section>
+
+    <section id="mvv" class="mvv-section">
+        <div class="mvv-container">
+            <div class="mvv-item">
+                <h3><i class="fas fa-bullseye"></i> Misión</h3>
+                <p>Ofrecer soluciones integrales en maquinaria industrial de confección, brindando asesoría técnica, venta de equipos y servicio especializado con rapidez y honestidad, impulsando la productividad de talleres y fábricas en la región.</p>
+            </div>
+            <div class="mvv-item">
+                <h3><i class="fas fa-eye"></i> Visión</h3>
+                <p>Ser el referente técnico y comercial en maquinaria para confección en Norte de Santander, reconocido por la calidad del servicio, la confianza de nuestros clientes y la mejora continua de nuestros procesos.</p>
+            </div>
+            <div class="mvv-item">
+                <h3><i class="fas fa-heart"></i> Valores</h3>
+                <p>Honestidad, compromiso, conocimiento técnico, atención personalizada y pasión por la industria de la confección. Cada cliente es único y merece una solución a su medida.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="catalogo" class="catalogo">
+    <h2><i class="fas fa-tshirt"></i> Nuestras máquinas</h2>
+    <div class="productos-grid" id="productosGrid"></div>
+    <p style="text-align:center; margin-top:25px; color:#4b5563;">
+        <i class="fas fa-globe"></i> Contamos con maquinaria industrial, familiar y repuestos. ¡Consulta por equipos específicos!
+    </p>
+    <!-- BOTÓN DEL CATÁLOGO - ACÁ LO PEGÁS -->
+    <div style="text-align: center; margin: 30px 0 10px;">
+        <a href="https://www.jack-sewing.com/overlock/index.html" target="_blank" style="display: inline-block; background: #2563eb; color: white; padding: 15px 40px; border-radius: 60px; text-decoration: none; font-weight: 700; font-size: 1.2rem; box-shadow: 0 8px 20px rgba(37,99,235,0.4); transition: 0.2s;">
+            <i class="fas fa-box-open"></i> VER CATÁLOGO COMPLETO
+        </a>
+    </div>
+</section>
+
+    <section id="contacto" style="margin:20px; text-align:center; background:white; border-radius:40px; padding:30px;">
+        <h2 style="font-size:2rem; font-weight:800; color:#0b1e33; margin-bottom:15px;">📲 Contacto directo</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+            <a href="tel:3134689806" style="background:#0b1e33; color:white; padding:18px 35px; border-radius:60px; text-decoration:none; font-weight:700; font-size:1.3rem;"><i class="fas fa-phone-alt"></i> Llamar ahora</a>
+            <a href="https://wa.me/573134689806" target="_blank" style="background:#25d366; color:white; padding:18px 35px; border-radius:60px; text-decoration:none; font-weight:700; font-size:1.3rem;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        </div>
+        <p style="margin-top:25px; color:#2563eb;">📍 Atendemos en Cúcuta y toda el área metropolitana</p>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 Heiner Carpio · Máquinas de coser y servicio técnico</p>
+    <p><i class="fas fa-horse"></i> Pegasus Industrial · <a href="#inicio">Volver arriba</a></p>
+    <p style="font-size:0.8rem; margin-top:15px;">Diseño digital con IA · Tu negocio en un clic</p>
+</footer>
+
+<a href="https://wa.me/573134689806" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        const icon = menuToggle.querySelector('i');
+        if (navMenu.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            const icon = menuToggle.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+    });
+
+    const productos = [
+        { nombre: "Máquina Recta Industrial", descripcion: "Ideal para confección pesada", icono: "fa-solid fa-robot" },
+        { nombre: "Overlock 5 hilos", descripcion: "Para acabados profesionales", icono: "fa-solid fa-gears" },
+        { nombre: "Bordadora Computarizada", descripcion: "Diseños automáticos", icono: "fa-solid fa-computer" },
+        { nombre: "Fileteadora Familiar", descripcion: "Para hogar y talleres pequeños", icono: "fa-solid fa-couch" },
+        { nombre: "Máquina Collaretera", descripcion: "Especial para tejido de punto", icono: "fa-solid fa-shirt" },
+        { nombre: "Botones y Ojaladora", descripcion: "Semiautomática", icono: "fa-solid fa-circle" },
+        { nombre: "Remalladora 3 hilos", descripcion: "Mantenimiento sencillo", icono: "fa-solid fa-wrench" },
+        { nombre: "Máquina Plana", descripcion: "Alta velocidad", icono: "fa-solid fa-gauge-high" }
+    ];
+
+    const grid = document.getElementById('productosGrid');
+    if (grid) {
+        grid.innerHTML = '';
+        productos.forEach(prod => {
+            const card = document.createElement('div');
+            card.className = 'producto-card';
+            card.innerHTML = `
+                <div class="producto-icono"><i class="fas ${prod.icono}"></i></div>
+                <h3>${prod.nombre}</h3>
+                <p>${prod.descripcion}</p>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
